@@ -11,9 +11,9 @@ val drawables = listOf(R.drawable.first, R.drawable.second, R.drawable.third, R.
 
 CardStack({ index -> 
 	Image(painterResource(id = drawables[index]),
-                          contentDescription = "Same Card Type with Different Images",
-                          contentScale = ContentScale.Crop,
-                          modifier = Modifier.size(196.dp, 196.dp)) },
+              contentDescription = "Same Card Type with Different Images",
+              contentScale = ContentScale.Crop,
+              modifier = Modifier.size(196.dp, 196.dp)) },
    	cardCount = drawables.size)
     
 </code></pre>
@@ -26,14 +26,14 @@ You can also define lists of composable and create different card layouts
 CardStack(listOf(
 	{
 		Text(text = "First Card", 
-			 textAlign = TextAlign.Center, 
-			 modifier = Modifier.size(196.dp)
+		     textAlign = TextAlign.Center, 
+		     modifier = Modifier.size(196.dp)
 	},
    	{
-       Image(painterResource(id = R.drawable.second),
-                             contentDescription = "Second Card Image",
-                             contentScale = ContentScale.Crop,
-                             modifier = Modifier.size(196.dp))
+       		Image(painterResource(id = R.drawable.second),
+                      contentDescription = "Second Card Image",
+                      contentScale = ContentScale.Crop,
+                      modifier = Modifier.size(196.dp))
    	}, 
    	{
    		Column(horizontalAlignment = Alignment.CenterHorizontally, 
@@ -45,9 +45,9 @@ CardStack(listOf(
    },
    {
    		Image(painterResource(id = R.drawable.fourth),
-                             contentDescription = "Fourth Card Image",
-                             contentScale = ContentScale.Crop,
-                             modifier = Modifier.size(196.dp)) })
+                      contentDescription = "Fourth Card Image",
+                      contentScale = ContentScale.Crop,
+                      modifier = Modifier.size(196.dp)) })
 )
                              </code></pre>
                              
