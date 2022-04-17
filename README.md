@@ -85,7 +85,7 @@ You can define;
 
 ```kotlin
 CardStack(
-	...,
+	..,
 	cardCount = drawables.size,
 	cardShape = CircleShape,
 	cardBorder = BorderStroke(2.dp, Color.White),
