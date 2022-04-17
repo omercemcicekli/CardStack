@@ -114,7 +114,7 @@ allprojects {
 
 <pre>
 <code>
-implementation 'com.github.omercemcicekli:CardStack:0.0.3'
+implementation 'com.github.omercemcicekli:CardStack:0.0.6'
 	</code></pre>
 
 ### License
