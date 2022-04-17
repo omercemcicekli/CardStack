@@ -22,7 +22,7 @@ CardStack({ index ->
 
 ![Alt Text](https://media.giphy.com/media/4XHSwUus1A71tOOnnA/giphy.gif)
 
-You can also define list of composables and create different card layouts
+You can also define list of composables and create different card layouts.
 
 ```kotlin
 CardStack(listOf(
