@@ -80,7 +80,7 @@ You can define;
 * Card border
 * Card elevation
 * Padding between cards
-* Animation duration (You can disable them completely by assigning 0)
+* Animation duration
 * Orientation
 
 ```kotlin
