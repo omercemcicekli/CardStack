@@ -29,7 +29,7 @@ CardStack(listOf(
 	{
 		Text(text = "First Card", 
 		     textAlign = TextAlign.Center, 
-		     modifier = Modifier.size(196.dp)
+		     modifier = Modifier.size(196.dp))
 	},
    	{
        		Image(painterResource(id = R.drawable.second),
