@@ -121,7 +121,7 @@ fun CardStack(
     }
 }
 
-fun checkCardCount(cardCount: Int) {
+private fun checkCardCount(cardCount: Int) {
     if (cardCount < 1)
         throw IllegalArgumentException("Can't use 0 or negative card count.")
 }
