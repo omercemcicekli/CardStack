@@ -42,8 +42,8 @@ CardStack(listOf(
                    		textAlign = TextAlign.Center)
                    Button(onClick = {}) { Text(text = "Button Text") } 
              }
-   },
-   {
+   	},
+   	{
    		Image(painterResource(id = R.drawable.fourth),
                       contentDescription = "Fourth Card Image",
                       contentScale = ContentScale.Crop,
@@ -67,13 +67,13 @@ You can define;
 
 <pre><code>
 	CardStack(
-        ...,
-        cardShape = CircleShape, 
-        cardBorder = BorderStroke(2.dp, Color.White),
-        cardElevation = 10.dp,
-        paddingBetweenCards = 10.dp,
-        animationDuration = 250,
-        orientation = Orientation.Horizontal(alignment = HorizontalAlignment.EndToStart,
+        	...,
+	        cardShape = CircleShape, 
+        	cardBorder = BorderStroke(2.dp, Color.White),
+	        cardElevation = 10.dp,
+	        paddingBetweenCards = 10.dp,
+        	animationDuration = 250,
+	        orientation = Orientation.Horizontal(alignment = HorizontalAlignment.EndToStart,
                                              animationStyle = HorizontalAnimationStyle.FromBottom)
    	)
 	</code></pre>
