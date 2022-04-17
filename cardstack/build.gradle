@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.omercemcicekli'
-version = '0.0.5'
+version = '0.0.6'
 
 android {
     compileSdk 32
@@ -14,7 +14,7 @@ android {
         minSdk 23
         targetSdk 32
         versionCode 1
-        versionName "0.0.5"
+        versionName "0.0.6"
     }
 
     buildTypes {
@@ -57,7 +57,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.omercemcicekli'
                 artifactId = 'cardstack'
-                version = '0.0.5'
+                version = '0.0.6'
             }
         }
     }

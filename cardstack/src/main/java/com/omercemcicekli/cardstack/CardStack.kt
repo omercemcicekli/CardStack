@@ -25,21 +25,25 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 
-internal const val rotationValue = 45f
+private const val rotationValue = 45f
+private const val defaultAnimationDuration = 300
+private val defaultPaddingBetweenItems = 8.dp
+private val defaultCardElevation = 1.dp
 
 @ExperimentalMaterialApi
 @Composable
 fun CardStack(
     cardContents: List<@Composable (Int) -> Unit>,
-    cardElevation: Dp = 1.dp,
-    paddingBetweenCards: Dp = 8.dp,
-    animationDuration: Int = 300,
+    cardElevation: Dp = defaultCardElevation,
+    paddingBetweenCards: Dp = defaultPaddingBetweenItems,
+    animationDuration: Int = defaultAnimationDuration,
     cardShape: Shape = MaterialTheme.shapes.medium,
     cardBorder: BorderStroke? = null,
     onCardClick: ((Int) -> Unit)? = null,
     orientation: Orientation = Orientation.Vertical()
 ) {
     checkPadding(paddingBetweenCards)
+    checkAnimationDuration(animationDuration)
 
     val cardCount = cardContents.size
 
@@ -79,9 +83,9 @@ fun CardStack(
 fun CardStack(
     cardContent: @Composable (Int) -> Unit,
     cardCount: Int,
-    cardElevation: Dp = 1.dp,
-    paddingBetweenCards: Dp = 8.dp,
-    animationDuration: Int = 300,
+    cardElevation: Dp = defaultCardElevation,
+    paddingBetweenCards: Dp = defaultPaddingBetweenItems,
+    animationDuration: Int = defaultAnimationDuration,
     cardShape: Shape = MaterialTheme.shapes.medium,
     cardBorder: BorderStroke? = null,
     onCardClick: ((Int) -> Unit)? = null,
@@ -89,6 +93,7 @@ fun CardStack(
 ) {
     checkCardCount(cardCount)
     checkPadding(paddingBetweenCards)
+    checkAnimationDuration(animationDuration)
 
     val runAnimations = animationDuration > 0
     val coroutineScope = rememberCoroutineScope()
@@ -122,13 +127,18 @@ fun CardStack(
 }
 
 private fun checkCardCount(cardCount: Int) {
-    if (cardCount < 1)
-        throw IllegalArgumentException("Can't use 0 or negative card count.")
+    if (cardCount < 2)
+        throw IllegalArgumentException("Can't use 1 or less card count.")
 }
 
 private fun checkPadding(paddingBetweenCards: Dp) {
-    if (paddingBetweenCards == 0.dp)
-        throw IllegalArgumentException("Can't use 0 dp padding for items.")
+    if (paddingBetweenCards <= 0.dp)
+        throw IllegalArgumentException("Can't use 0 or less for padding between cards.")
+}
+
+private fun checkAnimationDuration(animationDuration: Int) {
+    if (animationDuration < 1)
+        throw IllegalArgumentException("Can't use 0 or less for animation duration.")
 }
 
 private fun getContentAlignment(orientation: Orientation): Alignment {
@@ -269,14 +279,8 @@ private fun animateOnClick(
     val spec: TweenSpec<Float> = tween(animationDuration, easing = FastOutLinearInEasing)
 
     coroutineScope.launch {
-
-        if (runAnimations) {
-            val offsetAnimationResult = async { offsetAnimation.animateTo(pxValue.toFloat(), spec) }
-            val rotateAnimationResult = async { rotateAnimation.animateTo(rotationValue, spec) }
-            listOf(offsetAnimationResult, rotateAnimationResult).awaitAll()
-            launch { rotateAnimation.animateTo(0f, spec) }
-            launch { offsetAnimation.animateTo(0f, spec) }
-        }
+        if (runAnimations)
+            offsetAnimation.animateTo(pxValue.toFloat(), spec)
 
         val newIndex = if (cardCount > index + 1)
             index + 1
@@ -284,6 +288,12 @@ private fun animateOnClick(
             0
 
         newIndexBlock.invoke(newIndex)
+
+        if(runAnimations) {
+            rotateAnimation.animateTo(rotationValue, spec)
+            launch { rotateAnimation.animateTo(0f, spec) }
+            launch { offsetAnimation.animateTo(0f, spec) }
+        }
     }
 }
 
