@@ -1,5 +1,7 @@
 # CardStack
 
+[![](https://jitpack.io/v/omercemcicekli/CardStack.svg)](https://jitpack.io/#omercemcicekli/CardStack)
+
 A hobby project of mine needed Jetpack Compose Cards stacked on top of another. As I finished up the code, I decided to polish and release it as a library so here it is.
 
 ### Usage
