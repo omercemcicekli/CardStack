@@ -13,7 +13,7 @@ val drawables = listOf(R.drawable.first, R.drawable.second, R.drawable.third, R.
 
 CardStack({ index -> 
 	Image(painterResource(id = drawables[index]),
-              contentDescription = "Same Card Type with Different Images",
+              contentDescription = "Same Card Type with Different Image",
               contentScale = ContentScale.Crop,
               modifier = Modifier.size(196.dp, 196.dp)) },
    	cardCount = drawables.size)
@@ -22,7 +22,7 @@ CardStack({ index ->
 
 ![Alt Text](https://media.giphy.com/media/4XHSwUus1A71tOOnnA/giphy.gif)
 
-You can also define lists of composable and create different card layouts
+You can also define list of composables and create different card layouts
 
 <pre><code>
 CardStack(listOf(
