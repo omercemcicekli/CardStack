@@ -9,7 +9,7 @@ You can define a composable and create as many cards as you want by giving a car
 <pre><code>
 val drawables = listOf(R.drawable.first, R.drawable.second, R.drawable.third, R.drawable.fourth)
 
-CardView({ index -> 
+CardStack({ index -> 
 	Image(painterResource(id = drawables[index]),
                           contentDescription = "Same Card Type with Different Images",
                           contentScale = ContentScale.Crop,
