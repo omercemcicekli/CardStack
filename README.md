@@ -80,6 +80,24 @@ You can define;
 	
 ![Alt Text](https://media.giphy.com/media/OyIkBjyyKSJ2VJTDQo/giphy.gif)
 
+### Get the Library
+
+<pre>
+<code>
+allprojects {
+	repositories {
+		maven { url 'https://jitpack.io' }
+	}
+}
+	</code></pre>
+
+<pre>
+<code>
+implementation 'com.github.omercemcicekli:CardStack:0.0.3'
+	</code></pre>
+
+### License
+
 <pre>
 <code>
 The MIT License (MIT)
