@@ -21,6 +21,8 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 
 internal const val rotationValue = 45f
@@ -179,7 +181,7 @@ private fun ShowCard(
     composable: @Composable (Int) -> Unit,
     newIndexBlock: (Int) -> Unit
 ) {
-    var pxValue = 0
+    var itemPxSize = 0
 
     val padding = when {
         selectedIndex == index -> 0.dp
@@ -218,31 +220,33 @@ private fun ShowCard(
         else -> PaddingValues(end = paddingAnimation)
     }
 
+    val modifier = Modifier
+        .padding(paddingModifier)
+        .zIndex(-padding.value)
+        .offset { offsetValues }
+        .rotate(rotateAnimation.value)
+        .onSizeChanged {
+            itemPxSize = if (orientation is Orientation.Vertical) {
+                if (itemPxSize > it.width)
+                    itemPxSize
+                else
+                    it.width
+            } else {
+                if (itemPxSize > it.height)
+                    itemPxSize
+                else
+                    it.height
+            }
+        }
+
     Card(elevation = cardElevation,
         shape = cardShape,
-        modifier = Modifier
-            .padding(paddingModifier)
-            .zIndex(-padding.value)
-            .offset { offsetValues }
-            .onSizeChanged {
-                pxValue = if (orientation is Orientation.Vertical) {
-                    if (pxValue > it.width)
-                        pxValue
-                    else
-                        it.width
-                } else {
-                    if (pxValue > it.height)
-                        pxValue
-                    else
-                        it.height
-                }
-            }
-            .rotate(rotateAnimation.value),
+        modifier = modifier,
         border = cardBorder,
         onClick =  {
             if(cardCount > 1 && selectedIndex == index) {
                 onCardClick?.invoke(index)
-                animateOnClick(coroutineScope, pxValue, runAnimations, animationDuration, rotationValue, index, cardCount, offsetAnimation, rotateAnimation, newIndexBlock)
+                animateOnClick(coroutineScope, itemPxSize, runAnimations, animationDuration, rotationValue, index, cardCount, offsetAnimation, rotateAnimation, newIndexBlock)
             }
         }
     ) {
@@ -266,8 +270,13 @@ private fun animateOnClick(
 
     coroutineScope.launch {
 
-        if (runAnimations)
-            offsetAnimation.animateTo(pxValue.toFloat(), spec)
+        if (runAnimations) {
+            val offsetAnimationResult = async { offsetAnimation.animateTo(pxValue.toFloat(), spec) }
+            val rotateAnimationResult = async { rotateAnimation.animateTo(rotationValue, spec) }
+            listOf(offsetAnimationResult, rotateAnimationResult).awaitAll()
+            launch { rotateAnimation.animateTo(0f, spec) }
+            launch { offsetAnimation.animateTo(0f, spec) }
+        }
 
         val newIndex = if (cardCount > index + 1)
             index + 1
@@ -275,12 +284,6 @@ private fun animateOnClick(
             0
 
         newIndexBlock.invoke(newIndex)
-
-        if (runAnimations) {
-            rotateAnimation.animateTo(rotationValue, spec)
-            launch { rotateAnimation.animateTo(0f, spec) }
-            launch { offsetAnimation.animateTo(0f, spec) }
-        }
     }
 }
 
