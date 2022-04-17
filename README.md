@@ -1,28 +1,30 @@
 # CardStack
 
+[![](https://jitpack.io/v/omercemcicekli/CardStack.svg)](https://jitpack.io/#omercemcicekli/CardStack)
+
 A hobby project of mine needed Jetpack Compose Cards stacked on top of another. As I finished up the code, I decided to polish and release it as a library so here it is.
 
 ### Usage
 
 You can define a composable and create as many cards as you want by giving a card count.
 
-<pre><code>
+```kotlin
 val drawables = listOf(R.drawable.first, R.drawable.second, R.drawable.third, R.drawable.fourth)
 
 CardStack({ index -> 
 	Image(painterResource(id = drawables[index]),
-              contentDescription = "Same Card Type with Different Images",
+              contentDescription = "Same Card Type with Different Image",
               contentScale = ContentScale.Crop,
               modifier = Modifier.size(196.dp, 196.dp)) },
    	cardCount = drawables.size)
     
-</code></pre>
+```
 
 ![Alt Text](https://media.giphy.com/media/4XHSwUus1A71tOOnnA/giphy.gif)
 
-You can also define lists of composable and create different card layouts
+You can also define list of composables and create different card layouts.
 
-<pre><code>
+```kotlin
 CardStack(listOf(
 	{
 		Text(text = "First Card", 
@@ -49,7 +51,7 @@ CardStack(listOf(
                       contentScale = ContentScale.Crop,
                       modifier = Modifier.size(196.dp)) })
 )
-                             </code></pre>
+```
                              
 ![Alt Text](https://media.giphy.com/media/0csGgiP6l8tqVTGa6H/giphy.gif)
 
@@ -65,7 +67,7 @@ You can define;
 * Animation duration (You can disable them completely by assigning 0)
 * Orientation
 
-<pre><code>
+```kotlin
 	CardStack(
         	...,
 	        cardShape = CircleShape, 
@@ -76,9 +78,27 @@ You can define;
 	        orientation = Orientation.Horizontal(alignment = HorizontalAlignment.EndToStart,
                                              animationStyle = HorizontalAnimationStyle.FromBottom)
    	)
-	</code></pre>
+```
 	
 ![Alt Text](https://media.giphy.com/media/OyIkBjyyKSJ2VJTDQo/giphy.gif)
+
+### Get the Library
+
+<pre>
+<code>
+allprojects {
+	repositories {
+		maven { url 'https://jitpack.io' }
+	}
+}
+	</code></pre>
+
+<pre>
+<code>
+implementation 'com.github.omercemcicekli:CardStack:0.0.3'
+	</code></pre>
+
+### License
 
 <pre>
 <code>
