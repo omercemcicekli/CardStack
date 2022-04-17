@@ -11,13 +11,17 @@ You can define a composable and create as many cards as you want by giving a car
 ```kotlin
 val drawables = listOf(R.drawable.first, R.drawable.second, R.drawable.third, R.drawable.fourth)
 
-CardStack({ index -> 
-	Image(painterResource(id = drawables[index]),
-              contentDescription = "Same Card Type with Different Image",
-              contentScale = ContentScale.Crop,
-              modifier = Modifier.size(196.dp, 196.dp)) },
-   	cardCount = drawables.size)
-    
+CardStack(
+    { index ->
+        Image(
+            painterResource(id = drawables[index]),
+            contentDescription = "Same Card Type with Different Image",
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.size(196.dp, 196.dp)
+        )
+    },
+    cardCount = drawables.size
+)
 ```
 
 ![Alt Text](https://media.giphy.com/media/4XHSwUus1A71tOOnnA/giphy.gif)
@@ -25,31 +29,43 @@ CardStack({ index ->
 You can also define list of composables and create different card layouts.
 
 ```kotlin
-CardStack(listOf(
-	{
-		Text(text = "First Card", 
-		     textAlign = TextAlign.Center, 
-		     modifier = Modifier.size(196.dp))
-	},
-   	{
-       		Image(painterResource(id = R.drawable.second),
-                      contentDescription = "Second Card Image",
-                      contentScale = ContentScale.Crop,
-                      modifier = Modifier.size(196.dp))
-   	}, 
-   	{
-   		Column(horizontalAlignment = Alignment.CenterHorizontally, 
-   				modifier = Modifier.size(196.dp)) {
-                   Text(text = "Third Card With Button", 
-                   		textAlign = TextAlign.Center)
-                   Button(onClick = {}) { Text(text = "Button Text") } 
-             }
-   	},
-   	{
-   		Image(painterResource(id = R.drawable.fourth),
-                      contentDescription = "Fourth Card Image",
-                      contentScale = ContentScale.Crop,
-                      modifier = Modifier.size(196.dp)) })
+CardStack(
+    listOf(
+        {
+            Text(
+                text = "First Card",
+                textAlign = TextAlign.Center,
+                modifier = Modifier.size(196.dp)
+            )
+        },
+        {
+            Image(
+                painterResource(id = R.drawable.second),
+                contentDescription = "Second Card Image",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.size(196.dp)
+            )
+        },
+        {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.size(196.dp)
+            ) {
+                Text(
+                    text = "Third Card With Button",
+                    textAlign = TextAlign.Center
+                )
+                Button(onClick = {}) { Text(text = "Button Text") }
+            }
+        },
+        {
+            Image(
+                painterResource(id = R.drawable.fourth),
+                contentDescription = "Fourth Card Image",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.size(196.dp)
+            )
+        })
 )
 ```
                              
@@ -68,16 +84,19 @@ You can define;
 * Orientation
 
 ```kotlin
-	CardStack(
-        	...,
-	        cardShape = CircleShape, 
-        	cardBorder = BorderStroke(2.dp, Color.White),
-	        cardElevation = 10.dp,
-	        paddingBetweenCards = 10.dp,
-        	animationDuration = 250,
-	        orientation = Orientation.Horizontal(alignment = HorizontalAlignment.EndToStart,
-                                             animationStyle = HorizontalAnimationStyle.FromBottom)
-   	)
+CardStack(
+	...,
+	cardCount = drawables.size,
+	cardShape = CircleShape,
+	cardBorder = BorderStroke(2.dp, Color.White),
+	cardElevation = 10.dp,
+	paddingBetweenCards = 10.dp,
+	animationDuration = 250,
+	orientation = Orientation.Horizontal(
+	    alignment = HorizontalAlignment.EndToStart,
+	    animationStyle = HorizontalAnimationStyle.FromBottom
+	)
+)
 ```
 	
 ![Alt Text](https://media.giphy.com/media/OyIkBjyyKSJ2VJTDQo/giphy.gif)
